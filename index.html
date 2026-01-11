@@ -292,7 +292,7 @@
                             <div class="comment-section">
                                 <div id="comments-${g.id}">${gComments.map(c => `<div class="comment-item"><span>★</span> ${c.message}</div>`).join('')}</div>
                                 <div class="comment-input-wrap" style="display:flex; gap:10px; margin-top:1.5rem">
-                                    <input type="text" class="comment-input" id="input-${g.id}" style="border-radius:12px; padding:10px" placeholder="Respond with light...">
+                                    <input type="text" class="comment-input" id="input-${g.id}" style="border-radius:12px; padding:10px" placeholder="Respond...">
                                     <button class="btn-comment" onclick="postGuiltComment(${g.id})">Post</button>
                                 </div>
                             </div>
