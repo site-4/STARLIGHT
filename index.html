@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STARLIGHT</title>
+    <title>STARLIGHT | The North Star</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +36,6 @@
             background-repeat: repeat;
         }
 
-        /* Shadow Mode Visual */
         body.admin-mode { background-color: #120b2e; box-shadow: inset 0 0 100px var(--admin-glow); }
 
         .side-nav {
@@ -71,13 +70,11 @@
             display: flex; align-items: center; gap: 15px; margin: 0 auto 2rem;
         }
 
-        /* Shadow Portal Button */
         .btn-reveal {
             background: rgba(168, 85, 247, 0.1); border: 1px solid #a855f7; color: #a855f7;
             padding: 0.6rem 2rem; border-radius: 100px; cursor: pointer; font-weight: 800;
             font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;
         }
-        .btn-reveal:hover { background: #a855f7; color: white; }
         .btn-reveal.active { background: #a855f7; color: white; box-shadow: 0 0 20px var(--secret-glow); }
 
         .feedback-vault {
@@ -96,7 +93,7 @@
         .status-pill { display: inline-flex; padding: 6px 16px; border-radius: 100px; font-size: 0.65rem; font-weight: 800; border: 1px solid; text-transform: uppercase; margin-bottom: 1rem; }
         .type-like { background: rgba(52, 211, 153, 0.1); color: var(--star-emerald); }
         .type-dislike { background: rgba(244, 63, 94, 0.1); color: var(--star-ruby); }
-        .hidden-badge { background: #a855f7; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.6rem; vertical-align: middle; margin-left: 10px; }
+        .hidden-badge { background: #a855f7; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.6rem; vertical-align: middle; margin-left: 10px; font-weight: 800; }
 
         .comment-section { margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.2rem; }
         .comment-item { color: #cbd5e1; margin-bottom: 0.6rem; font-size: 0.95rem; }
@@ -143,7 +140,7 @@
             <section id="page-main" class="content-page active">
                 <div class="header-section">
                     <h1>The North Star</h1>
-                    <p id="main-subtitle" class="subtitle">A secure space to leave notes about things you like and don't like about me. If you choose to make them visible to me, I promise you I will use them to become a better person.</p>
+                    <p id="main-subtitle" class="subtitle">A secure space for honesty. Share your light or your shadows below.</p>
                 </div>
 
                 <div style="text-align:center; margin-bottom: 4rem;">
@@ -195,19 +192,28 @@
             if(pageId === 'main') fetchFeed();
         }
 
+        // FIXED: Corrected ternary syntax
         function toggleShadows() {
             derrickMode = !derrickMode;
             document.body.classList.toggle('admin-mode', derrickMode);
             document.getElementById('shadowBtn').classList.toggle('active', derrickMode);
-            document.getElementById('main-subtitle').innerText = derrickMode ? "PRIVATE VIEW: Seeing everything, including your hidden thoughts.";
+            document.getElementById('main-subtitle').innerText = derrickMode 
+                ? "PRIVATE VIEW: Seeing everything, including your hidden thoughts." 
+                : "A secure space for honesty. Share your light or your shadows below.";
             fetchFeed();
         }
 
         document.addEventListener('keydown', (e) => {
+            // CTRL+Q for New Guilt
             if (e.ctrlKey && e.key.toLowerCase() === 'q') {
                 e.preventDefault();
                 document.getElementById('secretModal').style.display = 'flex';
                 document.getElementById('guiltInput').focus();
+            }
+            // CTRL+ENTER for Secret Reveal
+            if (e.ctrlKey && e.key === 'Enter') {
+                e.preventDefault();
+                toggleShadows();
             }
         });
 
@@ -246,7 +252,6 @@
                 document.getElementById('starsFeed').innerHTML = thoughts.map(i => {
                     const iComments = (comments || []).filter(c => c.feedback_id === i.id);
                     
-                    // Logic: Hide comment UI for hidden posts
                     const commentUI = i.allow_view ? `
                         <div class="comment-section">
                             <div id="comments-fb-${i.id}">
