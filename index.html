@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STARLIGHT | The North Star</title>
+    <title>STARLIGHT</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -140,7 +140,7 @@
             <section id="page-main" class="content-page active">
                 <div class="header-section">
                     <h1>The North Star</h1>
-                    <p id="main-subtitle" class="subtitle">A secure space for honesty. Share your light or your shadows below.</p>
+                    <p id="main-subtitle" class="subtitle">A secure space to leave notes about things you like and don't like about me. If you choose to make them visible to me, I promise you I will use them to become a better person.</p>
                 </div>
 
                 <div style="text-align:center; margin-bottom: 4rem;">
@@ -199,7 +199,7 @@
             document.getElementById('shadowBtn').classList.toggle('active', derrickMode);
             document.getElementById('main-subtitle').innerText = derrickMode 
                 ? "PRIVATE VIEW: Seeing everything, including your hidden thoughts." 
-                : "A secure space for honesty. Share your light or your shadows below.";
+                : "A secure space to leave notes about things you like and don't like about me. If you choose to make them visible to me, I promise you I will use them to become a better person.";
             fetchFeed();
         }
 
